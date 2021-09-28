@@ -2,7 +2,7 @@ require "net/http"
 require "json"
 require "uri"
 
-uri = URI.parse("https://api.collegefootballdata.com/games?year=2021&seasonType=regular&team=Alabama")
+uri = URI.parse("https://api.collegefootballdata.com/games?year=2021&seasonType=regular&team=Georgia")
 request = Net::HTTP::Get.new(uri)
 request["Accept"] = "application/json"
 request["Authorization"] = "Bearer "
@@ -46,6 +46,17 @@ team_schedule = JSON.parse(response.body)
 #   "notes"=>nil},
 # }
 
-front_end = team_schedule.map { |game| "Week #{game["week"]}: #{game["away_team"]} at #{game["home_team"]}, Final score: #{game["away_points"]} - #{game["home_points"]}" }
-
-pp front_end
+index = 0
+while index < team_schedule.length
+  if team_schedule[index]["away_points"] == nil || team_schedule[index]["home_points"] == nil
+    puts "Week #{team_schedule[index]["week"]}: #{team_schedule[index]["away_team"]} at #{team_schedule[index]["home_team"]}"
+    puts "Venue: #{team_schedule[index]["venue"]}"
+    puts ""
+  else
+    puts "Week #{team_schedule[index]["week"]}: #{team_schedule[index]["away_team"]} at #{team_schedule[index]["home_team"]}"
+    puts "Venue: #{team_schedule[index]["venue"]}"
+    puts "Final: #{team_schedule[index]["away_points"]} - #{team_schedule[index]["home_points"]}"
+    puts ""
+  end
+  index += 1
+end
