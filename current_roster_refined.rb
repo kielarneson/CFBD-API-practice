@@ -21,3 +21,21 @@ def team_roster(team, year)
 end
 
 team_roster = team_roster("Alabama", 2021)
+
+def team_recruits_by_year(team, year)
+  uri = URI.parse("https://api.collegefootballdata.com/recruiting/players?year=#{year}&classification=HighSchool&team=#{team}")
+  request = Net::HTTP::Get.new(uri)
+  request["Accept"] = "application/json"
+  request["Authorization"] = "Bearer "
+
+  req_options = {
+    use_ssl: uri.scheme == "https",
+  }
+
+  response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+    http.request(request)
+  end
+
+  team_recruits = JSON.parse(response.body)
+  return team_recruits
+end
