@@ -64,3 +64,5 @@ def adding_players_recruiting_info_to_team_roster(team_roster, all_recruits)
   end
   return team_roster
 end
+
+team_roster_with_recruiting_info = adding_players_recruiting_info_to_team_roster(team_roster, all_recruits_from2017_to2021)
