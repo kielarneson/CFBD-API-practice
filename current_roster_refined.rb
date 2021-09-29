@@ -6,7 +6,7 @@ def team_roster(team, year)
   uri = URI.parse("https://api.collegefootballdata.com/roster?team=#{team}&year=#{year}")
   request = Net::HTTP::Get.new(uri)
   request["Accept"] = "application/json"
-  request["Authorization"] = "Bearer "
+  request["Authorization"] = "Bearer PUT_YOUR_CFDB_API_KEY_HERE"
 
   req_options = {
     use_ssl: uri.scheme == "https",
@@ -26,7 +26,7 @@ def team_recruits_by_year(team, year)
   uri = URI.parse("https://api.collegefootballdata.com/recruiting/players?year=#{year}&classification=HighSchool&team=#{team}")
   request = Net::HTTP::Get.new(uri)
   request["Accept"] = "application/json"
-  request["Authorization"] = "Bearer "
+  request["Authorization"] = "Bearer PUT_YOUR_CFDB_API_KEY_HERE"
 
   req_options = {
     use_ssl: uri.scheme == "https",
