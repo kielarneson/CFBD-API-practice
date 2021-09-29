@@ -19,3 +19,5 @@ def team_roster(team, year)
   team_roster = JSON.parse(response.body)
   return team_roster
 end
+
+team_roster = team_roster("Alabama", 2021)
