@@ -45,3 +45,22 @@ all_recruits_from2017_to2021 = (team_recruits_by_year("Alabama", 2021) |
                                 team_recruits_by_year("Alabama", 2019) |
                                 team_recruits_by_year("Alabama", 2018) |
                                 team_recruits_by_year("Alabama", 2017))
+
+def adding_players_recruiting_info_to_team_roster(team_roster, all_recruits)
+  index1 = 0
+  index2 = 0
+
+  while index1 < team_roster.length
+    while index2 < all_recruits.length
+      if team_roster[index1]["id"] == all_recruits[index2]["athleteId"]
+        team_roster[index1]["recruiting_class"] = all_recruits[index2]["year"]
+        team_roster[index1]["ranking"] = all_recruits[index2]["ranking"]
+        team_roster[index1]["rating"] = all_recruits[index2]["rating"]
+      end
+      index2 += 1
+    end
+    index1 += 1
+    index2 = 0
+  end
+  return team_roster
+end
