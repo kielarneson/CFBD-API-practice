@@ -70,3 +70,5 @@ team_roster_with_recruiting_info = adding_players_recruiting_info_to_team_roster
 front_end_display = team_roster_with_recruiting_info.
   select { |player| player["first_name"] != nil && player["ranking"] != nil && player["ranking"] < 250 }.sort_by { |player| player["rating"] }.reverse.
   map { |player| "#{player["first_name"]} #{player["last_name"]}, #{player["position"]} // Class: #{player["recruiting_class"]} // Ranking: #{player["ranking"]}" }
+
+pp front_end_display
