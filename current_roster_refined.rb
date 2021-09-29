@@ -72,3 +72,4 @@ front_end_display = team_roster_with_recruiting_info.
   map { |player| "#{player["first_name"]} #{player["last_name"]}, #{player["position"]} // Class: #{player["recruiting_class"]} // Ranking: #{player["ranking"]}" }
 
 pp front_end_display
+p "Number of players: #{front_end_display.length}"
