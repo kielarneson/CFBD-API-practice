@@ -2,7 +2,9 @@ require "net/http"
 require "json"
 require "uri"
 
-uri = URI.parse("https://api.collegefootballdata.com/games?year=2021&week=1&seasonType=regular")
+week = 1
+
+uri = URI.parse("https://api.collegefootballdata.com/games?year=2021&week=#{week}&seasonType=regular")
 request = Net::HTTP::Get.new(uri)
 request["Accept"] = "application/json"
 request["Authorization"] = "Bearer "
@@ -15,7 +17,7 @@ response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
   http.request(request)
 end
 
-team_schedule = JSON.parse(response.body)
+week_games = JSON.parse(response.body)
 
 # Data example
 # {"id"=>401309606,
@@ -45,7 +47,8 @@ team_schedule = JSON.parse(response.body)
 #   "highlights"=>nil,
 #   "notes"=>nil}
 
-front_end = team_schedule.
-  select { |game| game["excitement_index"].to_f > 5.0 }.
+front_end = week_games.
+  select { |game| game["excitement_index"].to_f > 8.0 }.
   map { |game| "#{game["away_team"]} vs #{game["home_team"]}" }
+
 pp front_end
