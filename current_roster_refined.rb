@@ -39,3 +39,9 @@ def team_recruits_by_year(team, year)
   team_recruits = JSON.parse(response.body)
   return team_recruits
 end
+
+all_recruits_from2017_to2021 = (team_recruits_by_year("Alabama", 2021) |
+                                team_recruits_by_year("Alabama", 2020) |
+                                team_recruits_by_year("Alabama", 2019) |
+                                team_recruits_by_year("Alabama", 2018) |
+                                team_recruits_by_year("Alabama", 2017))
