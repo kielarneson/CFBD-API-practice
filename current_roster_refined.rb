@@ -6,7 +6,7 @@ def team_roster(team, year)
   uri = URI.parse("https://api.collegefootballdata.com/roster?team=#{team}&year=#{year}")
   request = Net::HTTP::Get.new(uri)
   request["Accept"] = "application/json"
-  request["Authorization"] = "Bearer PUT_YOUR_CFDB_API_KEY_HERE"
+  request["Authorization"] = "Bearer 5ln/cNSd7OW/bNvLui5+WIC0ljQ4gb/1irOPdeodJQUbo02+zv/mlp/rYLTbwBka"
 
   req_options = {
     use_ssl: uri.scheme == "https",
@@ -20,13 +20,13 @@ def team_roster(team, year)
   return team_roster
 end
 
-team_roster = team_roster("Alabama", 2021)
+team_roster = team_roster("Alabama", 2022)
 
 def team_recruits_by_year(team, year)
   uri = URI.parse("https://api.collegefootballdata.com/recruiting/players?year=#{year}&classification=HighSchool&team=#{team}")
   request = Net::HTTP::Get.new(uri)
   request["Accept"] = "application/json"
-  request["Authorization"] = "Bearer PUT_YOUR_CFDB_API_KEY_HERE"
+  request["Authorization"] = "Bearer 5ln/cNSd7OW/bNvLui5+WIC0ljQ4gb/1irOPdeodJQUbo02+zv/mlp/rYLTbwBka"
 
   req_options = {
     use_ssl: uri.scheme == "https",
@@ -40,11 +40,11 @@ def team_recruits_by_year(team, year)
   return team_recruits
 end
 
-all_recruits_from2017_to2021 = (team_recruits_by_year("Alabama", 2021) |
+all_recruits_from2017_to2022 = (team_recruits_by_year("Alabama", 2022) |
+                                team_recruits_by_year("Alabama", 2021) |
                                 team_recruits_by_year("Alabama", 2020) |
                                 team_recruits_by_year("Alabama", 2019) |
-                                team_recruits_by_year("Alabama", 2018) |
-                                team_recruits_by_year("Alabama", 2017))
+                                team_recruits_by_year("Alabama", 2018))
 
 def adding_players_recruiting_info_to_team_roster(team_roster, all_recruits)
   index1 = 0
@@ -65,10 +65,10 @@ def adding_players_recruiting_info_to_team_roster(team_roster, all_recruits)
   return team_roster
 end
 
-team_roster_with_recruiting_info = adding_players_recruiting_info_to_team_roster(team_roster, all_recruits_from2017_to2021)
+team_roster_with_recruiting_info = adding_players_recruiting_info_to_team_roster(team_roster, all_recruits_from2017_to2022)
 
 front_end_display = team_roster_with_recruiting_info.
-  select { |player| player["first_name"] != nil && player["ranking"] != nil && player["ranking"] < 250 }.sort_by { |player| player["rating"] }.reverse.
+  select { |player| player["first_name"] != nil && player["ranking"] != nil && player["ranking"] < 750 }.sort_by { |player| player["rating"] }.reverse.
   map { |player| "#{player["first_name"]} #{player["last_name"]}, #{player["position"]} // Class: #{player["recruiting_class"]} // Ranking: #{player["ranking"]}" }
 
 pp front_end_display
